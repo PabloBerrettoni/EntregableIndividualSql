@@ -1,0 +1,26 @@
+drop table if exists categories;
+create table categories (
+	id INT primary key auto_increment not null unique,
+	name VARCHAR(100) not null unique
+);
+
+drop table if exists notes;
+create table notes (
+	id INT primary key auto_increment not null unique,
+	title VARCHAR(100) not null unique,
+	creation_date DATETIME not null,
+	last_modification DATETIME not null,
+	description TEXT not null,
+	can_be_eliminated tinyint not null,
+	id_categories INT not null,
+	foreign key (id_categories) references categories(id)
+);
+
+drop table if exists users;
+create table users (
+	id INT primary key auto_increment not null unique,
+	name VARCHAR(100) not null,
+	email VARCHAR(100) not null unique,
+	notes_managed INT not null,
+	foreign key (notes_managed) references notes(id)
+);
